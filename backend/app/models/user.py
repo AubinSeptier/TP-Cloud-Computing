@@ -24,7 +24,7 @@ class User(db.Model):
     # Define the relationship with the IMCRecord table
     imc_records = db.relationship('IMCRecord', backref='user', lazy=True, cascade="all, delete")
     
-    def __init__(self, username, email, password):
+    def __init__(self, username: str, email: str, password: str):
         """
         Initialize a new User instance. Password is hashed before storing.
         
@@ -37,7 +37,7 @@ class User(db.Model):
         self.email = email
         self.password_hash = generate_password_hash(password)
         
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         """
         Check if the provided password matches the stored password hash.
         
@@ -49,7 +49,7 @@ class User(db.Model):
         """
         return check_password_hash(self.password_hash, password)
     
-    def generate_jwt(self):
+    def generate_jwt(self) -> str:
         """
         Generate a JWT token for the user.
         
@@ -70,7 +70,7 @@ class User(db.Model):
         )
         
     @staticmethod
-    def verify_jwt(token):
+    def verify_jwt(token: str) -> dict:
         """
         Check if the provided JWT token is valid.
         
