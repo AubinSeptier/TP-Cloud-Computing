@@ -57,3 +57,21 @@ def get_history(current_user):
         
     except Exception as e:
         return jsonify({'message': f'An error occurred while retrieving IMC history: {str(e)}'}), 500
+    
+@imc_bp.route('/record/<int:record_id>', methods=['GET'])
+@token_required
+def get_record(current_user, record_id):
+    try:
+        record = IMCRecord.query.filter_by(id=record_id, user_id=current_user.id).first()
+        
+        if not record:
+            return jsonify({'message': f'Record {str(record_id)} not found'}), 404
+        
+        return jsonify({
+            'message': 'IMC record retrieved successfully',
+            'record': record.to_dict()
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'message': f'An error occurred while retrieving IMC record: {str(e)}'}), 500
+    
