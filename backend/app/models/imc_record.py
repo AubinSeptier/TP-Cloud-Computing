@@ -2,10 +2,8 @@
 IMCRecord model for the application.
 This module defines the IMCRecord class, which represents an IMC record in the application.
 """
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
-db = SQLAlchemy()
+from app.models import db
 
 class IMCRecord(db.Model):
     __tablename__ = 'imc_records'

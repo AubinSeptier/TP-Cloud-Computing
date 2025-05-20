@@ -2,13 +2,11 @@
 User model for the application.
 This module defines the User class, which represents a user in the application.
 """
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 import jwt
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
-
-db = SQLAlchemy()
+from app.models import db
 
 class User(db.Model):
     # Define the name of the table in the database
