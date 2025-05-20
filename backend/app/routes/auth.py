@@ -87,3 +87,13 @@ def login():
             'email': user.email
         }
     }), 200
+    
+@auth_bp.route('/user', methods=['GET'])
+@token_required
+def get_user(current_user):
+    return jsonify({
+        'id': current_user.id,
+        'username': current_user.username,
+        'email': current_user.email,
+        'created_at': current_user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    }), 200
