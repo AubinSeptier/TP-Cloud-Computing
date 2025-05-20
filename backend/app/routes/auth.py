@@ -63,3 +63,27 @@ def register():
             'email': new_user.email
         }
     }), 201
+    
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    
+    if not data or not data.get('email') or not data.get('password'):
+        return jsonify({'message': 'Missing required fields'}), 400
+    
+    user = User.query.filter_by(email=data['email']).first()
+    
+    if not user or not user.check_password(data['password']):
+        return jsonify({'message': 'Invalid credentials'}), 401
+    
+    token = user.generate_jwt()
+    
+    return jsonify({
+        'message': 'Login successful',
+        'token': token,
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email
+        }
+    }), 200
