@@ -17,7 +17,7 @@ class IMCRecord(db.Model):
     imc_value = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
-    def __init__(self, user_id, weight, height):
+    def __init__(self, user_id: int, weight: float, height: float):
         """
         Initialize a new IMCRecord instance.
         
@@ -39,7 +39,7 @@ class IMCRecord(db.Model):
         height_in_meters = self.height / 100  # Convert height from cm to m
         self.imc_value = round(self.weight / (height_in_meters ** 2), 2)
         
-    def get_status(self):
+    def get_status(self) -> str:
         """
         Determine the IMC status based on the calculated IMC value.
         The status is categorized as follows:
@@ -66,7 +66,7 @@ class IMCRecord(db.Model):
         else:
             return "Obesity (Class III)"
         
-    def to_dict(self):
+    def to_dict(self) -> dict:
         """
         Convert the IMCRecord instance to a dictionary representation.
         
@@ -82,7 +82,7 @@ class IMCRecord(db.Model):
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
         }
         
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return a string representation of the IMCRecord object.
         

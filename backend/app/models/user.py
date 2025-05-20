@@ -94,7 +94,7 @@ class User(db.Model):
         except jwt.InvalidTokenError:
             return None
         
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return a string representation of the User object.
         
