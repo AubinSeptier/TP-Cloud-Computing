@@ -1,3 +1,7 @@
+"""
+Routes for authentication and user management.
+This module provides endpoints for user registration, login, and retrieving user information.
+"""
 from flask import Blueprint, request, jsonify
 from app.models.user import User, db
 from functools import wraps
@@ -33,6 +37,16 @@ def token_required(f):
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
+    """
+    Route to register a new user.
+    Data should be sent in JSON format with the following fields:
+    - username: The username of the user.
+    - email: The email of the user.
+    - password: The password of the user.
+        
+    Returns:
+        A JSON response with the registration information and a success message.
+    """
     data = request.json
     
     if not data or not data.get('email') or not data.get('username') or not data.get('password'):
@@ -64,6 +78,15 @@ def register():
     
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    """
+    Route to log in a user.
+    Data should be sent in JSON format with the following fields:
+    - email: The email of the user.
+    - password: The password of the user.
+    
+    Returns:
+        A JSON response with the login information, a success message, and a JWT token for the user.
+    """
     data = request.json
     
     if not data or not data.get('email') or not data.get('password'):
@@ -89,6 +112,13 @@ def login():
 @auth_bp.route('/user', methods=['GET'])
 @token_required
 def get_user(current_user):
+    """
+    Route to get the current user's information.
+    Requires a valid JWT token in the Authorization header.
+    
+    Returns:
+        A JSON response with the user's information.
+    """
     return jsonify({
         'id': current_user.id,
         'username': current_user.username,
