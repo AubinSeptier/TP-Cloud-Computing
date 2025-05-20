@@ -1,3 +1,8 @@
+"""
+Routes for calculating and managing IMC (Body Mass Index) records.
+This module provides endpoints for calculating IMC, retrieving history,
+getting a specific record, and deleting a record.
+"""
 from flask import Blueprint, request, jsonify
 from app.models.imc_record import IMCRecord, db
 from app.routes.auth import token_required
@@ -7,6 +12,16 @@ imc_bp = Blueprint('imc', __name__)
 @imc_bp.route('/calculate_imc', methods=['POST'])
 @token_required
 def calculate_imc(current_user):
+    """
+    Route to calculate the IMC (Body Mass Index) based on weight and height.
+    The weight and height are provided in the request body as JSON.
+    
+    Args:
+        current_user: The current user object, obtained from the token.
+        
+    Returns:
+        JSON response with the calculated IMC and a success message.
+    """
     data = request.json
     
     if not data or not data.get('weight') or not data.get('height'):
@@ -44,6 +59,15 @@ def calculate_imc(current_user):
 @imc_bp.route('/history', methods=['GET'])
 @token_required
 def get_history(current_user):
+    """
+    Route to retrieve the IMC history of the current user.
+    
+    Args:
+        current_user: The current user object, obtained from the token.
+        
+    Returns:
+        JSON response with the IMC history and a success message.
+    """
     try:
         records = IMCRecord.query.filter_by(user_id=current_user.id).order_by(IMCRecord.created_at.desc()).all()
         
@@ -61,6 +85,16 @@ def get_history(current_user):
 @imc_bp.route('/record/<int:record_id>', methods=['GET'])
 @token_required
 def get_record(current_user, record_id):
+    """
+    Route to retrieve a specific IMC record by its ID.
+    
+    Args:
+        current_user: The current user object, obtained from the token.
+        record_id (int): The ID of the IMC record to retrieve.
+        
+    Returns:
+        JSON response with the IMC record and a success message.
+    """
     try:
         record = IMCRecord.query.filter_by(id=record_id, user_id=current_user.id).first()
         
@@ -78,6 +112,16 @@ def get_record(current_user, record_id):
 @imc_bp.route('/record/<int:record_id>', methods=['DELETE'])
 @token_required
 def delete_record(current_user, record_id):
+    """
+    Route to delete a specific IMC record by its ID.
+    
+    Args:
+        current_user: The current user object, obtained from the token.
+        record_id (int): The ID of the IMC record to delete.
+        
+    Returns:
+        JSON response with a success message.
+    """
     try:
         record = IMCRecord.query.filter_by(id=record_id, user_id=current_user.id).first()
         
