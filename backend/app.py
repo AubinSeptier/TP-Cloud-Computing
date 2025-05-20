@@ -1,3 +1,7 @@
+"""
+Application entry point for the Flask application.
+This file initializes the Flask application, sets up the database, and creates the necessary tables.
+"""
 from app import create_app
 from app.models import db
 
