@@ -41,3 +41,19 @@ def calculate_imc(current_user):
         db.session.rollback()
         return jsonify({'message': f'An error occurred while calculating IMC: {str(e)}'}), 500
     
+@imc_bp.route('/history', methods=['GET'])
+@token_required
+def get_history(current_user):
+    try:
+        records = IMCRecord.query.filter_by(user_id=current_user.id).order_by(IMCRecord.created_at.desc()).all()
+        
+        history = [record.to_dict() for record in records]
+        
+        return jsonify({
+            'message': 'IMC history retrieved successfully',
+            'history': history,
+            'count': len(history)
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'message': f'An error occurred while retrieving IMC history: {str(e)}'}), 500
