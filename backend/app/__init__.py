@@ -1,3 +1,8 @@
+"""
+IMC API Application Initialization
+This module initializes the Flask application for the IMC API.
+It sets up the application configuration, database connection, and routes.
+"""
 import os
 from flask import Flask
 from flask_cors import CORS
@@ -6,6 +11,12 @@ from app.models import db
 from app.routes import auth_bp, imc_bp
 
 def create_app():
+    """
+    Create and configure the Flask application.
+    
+    Returns:
+        Flask: The configured Flask application instance.
+    """
     app = Flask(__name__, instance_relative_config=True)
     
     app.config.from_mapping(
