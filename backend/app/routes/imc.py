@@ -75,3 +75,22 @@ def get_record(current_user, record_id):
     except Exception as e:
         return jsonify({'message': f'An error occurred while retrieving IMC record: {str(e)}'}), 500
     
+@imc_bp.route('/record/<int:record_id>', methods=['DELETE'])
+@token_required
+def delete_record(current_user, record_id):
+    try:
+        record = IMCRecord.query.filter_by(id=record_id, user_id=current_user.id).first()
+        
+        if not record:
+            return jsonify({'message': f'Record {str(record_id)} not found'}), 404
+        
+        db.session.delete(record)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'IMC record deleted successfully'
+        }), 200
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': f'An error occurred while deleting IMC record: {str(e)}'}), 500
