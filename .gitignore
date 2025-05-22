@@ -21,6 +21,7 @@ wheels/
 *.egg
 .coverage
 htmlcov/
+.venv/
 
 # Environnement
 .env
@@ -52,5 +53,7 @@ docker-compose.override.yml
 .DS_Store
 Thumbs.db
 
-# PostgreSQL
+# PostgreSQL & Flask
 *.dump
+**/migrations/
+**/instance/
