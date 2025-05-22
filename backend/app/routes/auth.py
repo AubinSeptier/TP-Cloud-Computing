@@ -26,7 +26,7 @@ def token_required(f):
             if payload is None:
                 return jsonify({'message': 'Token is invalid!'}), 401
             
-            current_user = User.query.filter_by(id=payload['sub']).first()
+            current_user = User.query.filter_by(id=int(payload['sub'])).first()
             if not current_user:
                 return jsonify({'message': 'User not found!'}), 401
             

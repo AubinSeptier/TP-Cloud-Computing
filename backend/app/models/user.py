@@ -54,18 +54,25 @@ class User(db.Model):
         Returns:
             str: The generated JWT token.
         """
+        print(f"Secret Key for generation: {os.environ.get('JWT_SECRET_KEY')}")
+        
         payload = {
             'exp': datetime.utcnow() + timedelta(hours=24),
             'iat': datetime.utcnow(),
-            'sub': self.id,
+            'sub': str(self.id),
             'username': self.username
         }
         
-        return jwt.encode(
+        token = jwt.encode(
             payload,
             os.environ.get('JWT_SECRET_KEY'),
             algorithm='HS256'
         )
+        
+        if isinstance(token, bytes):
+            token = token.decode('utf-8')
+            
+        return token
         
     @staticmethod
     def verify_jwt(token: str) -> dict:
@@ -79,17 +86,27 @@ class User(db.Model):
             dict: The decoded payload if the token is valid, None otherwise.
         """
         try:
+            print(f"Secret Key for verification: {os.environ.get('JWT_SECRET_KEY')}")
+            print(f"Token for verification: {token}")
+            
             payload = jwt.decode(
                 token,
                 os.environ.get('JWT_SECRET_KEY'),
                 algorithms=["HS256"]
             )
             
+            print(f"Decoded payload: {payload}")
+            
             return payload
         
         except jwt.ExpiredSignatureError:
+            print("Token has expired")
             return None
-        except jwt.InvalidTokenError:
+        except jwt.InvalidTokenError as e:
+            print(f"Invalid token: {str(e)}")
+            return None
+        except Exception as e:
+            print(f"Error verifying token: {str(e)}")
             return None
         
     def __repr__(self) -> str:
