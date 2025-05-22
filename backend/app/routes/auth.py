@@ -113,10 +113,13 @@ def login():
     
 @auth_bp.route('/user', methods=['GET'])
 @token_required
-def get_user(current_user):
+def get_user(current_user: User):
     """
     Route to get the current user's information.
     Requires a valid JWT token in the Authorization header.
+    
+    Args:
+        current_user (User): The current user object, obtained from the token.
     
     Returns:
         A JSON response with the user's information.
