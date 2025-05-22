@@ -54,7 +54,6 @@ class User(db.Model):
         Returns:
             str: The generated JWT token.
         """
-        print(f"Secret Key for generation: {os.environ.get('JWT_SECRET_KEY')}")
         
         payload = {
             'exp': datetime.utcnow() + timedelta(hours=24),
@@ -85,17 +84,12 @@ class User(db.Model):
         Returns:
             dict: The decoded payload if the token is valid, None otherwise.
         """
-        try:
-            print(f"Secret Key for verification: {os.environ.get('JWT_SECRET_KEY')}")
-            print(f"Token for verification: {token}")
-            
+        try:            
             payload = jwt.decode(
                 token,
                 os.environ.get('JWT_SECRET_KEY'),
                 algorithms=["HS256"]
             )
-            
-            print(f"Decoded payload: {payload}")
             
             return payload
         
