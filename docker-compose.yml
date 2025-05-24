@@ -48,9 +48,6 @@ services:
       - backend
     ports:
       - "80:80"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     environment:
       - REACT_APP_API_URL=https://localhost:5000/api
 
