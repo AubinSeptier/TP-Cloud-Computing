@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imcService from '../services/imc';
-import '../styles/HistoryList.css';
+// import '../styles/HistoryList.css';
 
 const HistoryList = ({ records, onDelete }) => {
     const getStatusClass = (status) => {
