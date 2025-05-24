@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import imcService from '../services/imc';
-import '../styles/IMCCalculator.css';
+// import '../styles/IMCCalculator.css';
 
 const IMCCalculator = ({ onCalculate }) => {
     const [weight, setWeight] = useState('');
@@ -62,7 +62,7 @@ const IMCCalculator = ({ onCalculate }) => {
                         type='number'
                         className='form-control'
                         id='height'
-                        value={weight}
+                        value={height}
                         onChange={(e) => setHeight(e.target.value)}
                         placeholder='"Enter your height (cm)'
                         min='50'
