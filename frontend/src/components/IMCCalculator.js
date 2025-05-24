@@ -56,7 +56,7 @@ const IMCCalculator = ({ onCalculate }) => {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor='height' className='form-label'>
-                        Weight (kg)
+                        Height (cm)
                     </label>
                     <input
                         type='number'
