@@ -3,7 +3,7 @@ import api from './api';
 const imcService = {
     calculateIMC: async (weight, height) => {
         try {
-            const response = await api.post('/imc/calculate', {weight, height});
+            const response = await api.post('/imc/calculate_imc', {weight, height});
             return response.data;
         } catch (error) {
             throw error.response?.data || { message: 'Error occurred while calculating IMC' };
