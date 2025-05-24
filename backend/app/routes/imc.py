@@ -84,7 +84,7 @@ def get_history(current_user):
     
 @imc_bp.route('/record/<int:record_id>', methods=['GET'])
 @token_required
-def get_record(current_user, record_id):
+def get_record(current_user, record_id: int):
     """
     Route to retrieve a specific IMC record by its ID.
     
@@ -111,7 +111,7 @@ def get_record(current_user, record_id):
     
 @imc_bp.route('/record/<int:record_id>', methods=['DELETE'])
 @token_required
-def delete_record(current_user, record_id):
+def delete_record(current_user, record_id: int):
     """
     Route to delete a specific IMC record by its ID.
     

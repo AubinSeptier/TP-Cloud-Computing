@@ -27,7 +27,7 @@ def create_app():
         JWT_ACCESS_TOKEN_EXPIRES=int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRES', 3600))
     )
     
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     
     db.init_app(app)
     
