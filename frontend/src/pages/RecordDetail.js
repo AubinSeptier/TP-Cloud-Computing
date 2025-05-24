@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import imcService from '../services/imc';
-import '../styles/RecordDetail.css';
+// import '../styles/RecordDetail.css';
 
 const RecordDetail = () => {
     const { id } = useParams();
@@ -93,7 +93,7 @@ const RecordDetail = () => {
                         <p><strong>Height:</strong> {record.height}</p>
                     </div>
                     <div className='col-md-6'>
-                        <h3>Rsults</h3>
+                        <h3>Results</h3>
                         <p><strong>BMI:</strong> {record.imc_value}</p>
                         <p><strong>Status:</strong> <span className={getStatusClass(record.status)}>{record.status}</span></p>
                     </div>
