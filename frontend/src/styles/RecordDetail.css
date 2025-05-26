@@ -73,7 +73,7 @@
 }
 
 .record-detail-container .imc-info ul li:before {
-    content: "•";
+    content: "";
     position: absolute;
     left: 0;
     color: #007bff;
