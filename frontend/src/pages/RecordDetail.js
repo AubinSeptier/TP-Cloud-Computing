@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import imcService from '../services/imc';
-// import '../styles/RecordDetail.css';
+import '../styles/RecordDetail.css';
 
 const RecordDetail = () => {
     const { id } = useParams();

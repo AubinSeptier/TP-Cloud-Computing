@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import imcService from '../services/imc';
-// import '../styles/IMCCalculator.css';
+import '../styles/IMCCalculator.css';
 
 const IMCCalculator = ({ onCalculate }) => {
     const [weight, setWeight] = useState('');
