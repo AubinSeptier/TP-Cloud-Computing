@@ -1,0 +1,112 @@
+.record-detail-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.record-detail-container .card {
+    box-shadow: 0 px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+}
+
+.record-detail-container .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.25rem 1.5rem;
+}
+
+.record-detail-container .card-header h2 {
+    margin-bottom: 0;
+    color: #333;
+    font-weight: 600;
+}
+
+.record-detail-container .card-body {
+    padding: 2rem;
+}
+
+.record-detail-container h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.record-detail-container h4 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.record-detail-container p {
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+    color: #555;
+}
+
+.record-detail-container strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.record-detail-container .imc-info {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.record-detail-container .imc-info ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.record-detail-container .imc-info ul li {
+    margin-bottom: 0.5rem;
+    color: #555;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.record-detail-container .imc-info ul li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.record-detail-container .card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    padding: 1.25rem 1.5rem;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+@media (max-width: 768px) {
+    .record-detail-container .card-body {
+        padding: 1.5rem;
+    }
+    .record-detail-container h {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .record-detail-container p {
+        font-size: 1rem;
+    }
+}
