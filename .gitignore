@@ -45,9 +45,10 @@ yarn-error.log*
 *.swp
 *.swo
 
-# Docker
+# Docker & Kubernetes
 .dockerignore
 docker-compose.override.yml
+k8s/config/secrets.yaml
 
 # Système
 .DS_Store

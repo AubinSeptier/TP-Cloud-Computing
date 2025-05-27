@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: migration
+        image: imc-tracker-backend:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c", "sleep 10 && flask db init || true && flask db migrate && flask db upgrade"]
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DATABASE_URL
+          - name: JWT_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: app-secrets
+                key: JWT_SECRET_KEY
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secrets
+                key: POSTGRES_PASSWORD
+          - name: FLASK_APP
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: FLASK_APP
+      restartPolicy: Never
+  backoffLimit: 4
+  
