@@ -1,7 +1,9 @@
+# Docker Compose file for a Flask backend with PostgreSQL and a React frontend
+# This file defines the services, networks, and volumes for the application.
 version: '3.11'
 
 services:
-  db:
+  db: # PostgreSQL database service
     image: postgres:latest
     restart: always
     environment:
@@ -13,12 +15,12 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  backend:
+  backend: # Flask backend service
     build: ./backend
     restart: always
     depends_on:
       - db
-    environment:
+    environment: 
       - DATABASE_URL=${DATABASE_URL}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - JWT_ACCESS_TOKEN_EXPIRES=${JWT_ACCESS_TOKEN_EXPIRES}
@@ -41,7 +43,7 @@ services:
         flask db upgrade
         gunicorn --bind 0.0.0.0:5000 'app:create_app()'"
 
-  frontend:
+  frontend: # React frontend service
     build: ./frontend
     restart: always
     depends_on:
