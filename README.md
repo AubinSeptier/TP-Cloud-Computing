@@ -49,6 +49,13 @@ Here are the steps to deploy the application:
     docker-compose ps
    ```
 
+6. Initialize the database by running these commands:
+   ```bash
+    docker-compose exec backend flask db init
+    docker-compose exec backend flask db migrate
+    docker-compose exec backend flask db upgrade
+   ```
+
 6. Access the application in your web browser at `http://localhost`.
 
 7. To stop the application, run:
