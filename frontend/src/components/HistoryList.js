@@ -1,3 +1,4 @@
+// HistoryList.js: A React component for displaying a list of BMI records with options to delete or view details of each record.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imcService from '../services/imc';

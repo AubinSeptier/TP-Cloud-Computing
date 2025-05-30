@@ -1,3 +1,4 @@
+// IMCCalulator.js: A React component for calculating the Body Mass Index (BMI) using a service to handle the calculation logic.
 import React, { useState } from 'react';
 import imcService from '../services/imc';
 import '../styles/IMCCalculator.css';

@@ -1,3 +1,4 @@
+// Navbar.js: A React component for rendering the navigation bar with links to different pages and handling user authentication state.
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/auth';
