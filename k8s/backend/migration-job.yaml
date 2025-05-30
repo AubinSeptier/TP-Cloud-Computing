@@ -1,3 +1,4 @@
+# This Kubernetes Job is used to run database migrations for the IMC Tracker backend.
 apiVersion: batch/v1
 kind: Job
 metadata:
