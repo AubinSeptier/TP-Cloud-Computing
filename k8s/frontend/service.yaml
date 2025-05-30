@@ -1,3 +1,4 @@
+# This file defines the Kubernetes Service for the frontend application, which exposes it on port 80.
 apiVersion: v1
 kind: Service
 metadata:
