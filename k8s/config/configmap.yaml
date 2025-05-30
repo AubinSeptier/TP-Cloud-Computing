@@ -1,3 +1,4 @@
+# This config map is used to store application configuration settings for the IMC Tracker application.
 apiVersion: v1
 kind: ConfigMap
 metadata:
