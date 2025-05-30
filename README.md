@@ -49,7 +49,7 @@ Here are the steps to deploy the application:
     docker-compose ps
    ```
 
-6. Initialize the database by running these commands:
+6. Initialize the database by running these commands (if first time running):
    ```bash
     docker-compose exec backend flask db init
     docker-compose exec backend flask db migrate
