@@ -1,3 +1,4 @@
+# Dockerfile for building and serving a React frontend application with Nginx
 FROM node:20-alpine as build
 
 WORKDIR /app

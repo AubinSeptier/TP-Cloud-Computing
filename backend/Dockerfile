@@ -1,3 +1,4 @@
+# Dockerfile for building and serving a Flask backend application with Gunicorn
 FROM python:3.11-slim
 
 WORKDIR /app
