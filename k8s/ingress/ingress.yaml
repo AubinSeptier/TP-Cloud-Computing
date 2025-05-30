@@ -1,3 +1,4 @@
+# This file defines the ingress resource for the application, which routes traffic to the frontend and backend services.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
