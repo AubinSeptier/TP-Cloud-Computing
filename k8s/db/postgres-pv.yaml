@@ -1,3 +1,4 @@
+# This file defines the Persistent Volume for the PostgreSQL database, which uses a host path for storage.
 apiVersion: v1
 kind: PersistentVolume
 metadata:

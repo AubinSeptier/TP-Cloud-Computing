@@ -1,3 +1,4 @@
+# This file defines the Persistent Volume Claim for the PostgreSQL database, which requests 1Gi of storage.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
