@@ -1,3 +1,4 @@
+// Register.js: A React component for user registration, allowing users to create a new account with username, email, and password.
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/auth';

@@ -1,3 +1,4 @@
+// Login.js: A React component for the user login page, allowing users to authenticate and navigate to the dashboard upon successful login.
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth";

@@ -1,3 +1,4 @@
+// RecordDetail.js: A React component for displaying the details of a specific BMI record, allowing users to view, delete, or navigate back to the dashboard.
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import imcService from '../services/imc';

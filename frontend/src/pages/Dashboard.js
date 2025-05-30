@@ -1,3 +1,4 @@
+// Dashboard.js: A React component for the user dashboard that displays the user's BMI calculator and history of BMI records, fetching data from services and handling user interactions.
 import React, { useState, useEffect} from 'react';
 import IMCCalculator from '../components/IMCCalculator';
 import HistoryList from '../components/HistoryList';
