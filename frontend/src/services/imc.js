@@ -1,3 +1,4 @@
+// imc.js: A service module for handling API requests related to Body Mass Index (BMI) calculations and history management.
 import api from './api';
 
 const imcService = {

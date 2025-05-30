@@ -1,3 +1,4 @@
+// api.js: A service module for making API requests to the backend, handling authentication tokens, and setting up default headers.
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';

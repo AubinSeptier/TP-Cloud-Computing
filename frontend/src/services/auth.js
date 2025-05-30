@@ -1,3 +1,4 @@
+// auth.js: A service module for handling user authentication, including registration, login, logout, and checking authentication status.
 import api from './api';
 
 const authService = {
