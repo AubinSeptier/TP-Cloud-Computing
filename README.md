@@ -11,6 +11,17 @@ Here are some of the features of the application:
 - History of BMI, weight, and height entries
 - Data persistence with PostgreSQL
 
+### API Endpoints
+
+Here are the API endpoints available in the application:
+
+- `POST /api/auth/register`: To register a new user.
+- `POST /api/auth/login`: To log in a user and receive a JWT token.  
+- `POST /api/imc/calculate_imc`: To calculate the BMI based on weight and height. Needs authentication and a valid JWT token.
+- `GET /api/imc/history`: To get the history of BMI, weight, and height entries for the authenticated user. Needs authentication and a valid JWT token.
+- `GET /api/imc/record/<record_id>`: To get a specific BMI record by its ID. Needs authentication and a valid JWT token.
+- `DELETE /api/imc/record/<record_id>`: To delete a specific BMI record by its ID. Needs authentication and a valid JWT token.
+
 ## Installation
 
 ### Prerequisites
