@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: db
-          image: postgres:latest
+          image: postgres:16-alpine
           ports:
             - containerPort: 5432
           env:
@@ -37,6 +37,7 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:

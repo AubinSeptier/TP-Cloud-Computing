@@ -15,16 +15,10 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: imc-tracker-frontend:latest
-          imagePullPolicy: IfNotPresent
+          image: 192.168.56.101:5000/imc-tracker-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
-          env:
-            - name: REACT_APP_API_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config
-                  key: REACT_APP_API_URL
           resources:
             limits:
               cpu: "300m"

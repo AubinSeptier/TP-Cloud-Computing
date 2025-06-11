@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: imc-tracker-backend:latest
-          imagePullPolicy: IfNotPresent
+          image: 192.168.56.101:5000/imc-tracker-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
@@ -51,6 +51,12 @@ spec:
               port: 5000
             initialDelaySeconds: 15
             periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 15
           resources:
             limits:
               cpu: "500m"

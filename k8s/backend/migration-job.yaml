@@ -3,14 +3,26 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: migration-job
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm-sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   template:
     spec:
       containers:
       - name: migration
-        image: imc-tracker-backend:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "-c", "sleep 10 && flask db init || true && flask db migrate && flask db upgrade"]
+        image: 192.168.56.101:5000/imc-tracker-backend:latest
+        imagePullPolicy: Always
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "Waiting for PostreSQL..."
+            while ! pg_isready -h db -U ${POSTGRES_USER}; do
+              sleep 2
+            done
+            echo "PostreSQL is ready, running upgrade..."
+            flask db upgrade
         env:
           - name: DATABASE_URL
             valueFrom:
@@ -22,6 +34,11 @@ spec:
               secretKeyRef:
                 name: app-secrets
                 key: JWT_SECRET_KEY
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: app-secrets
+                key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
