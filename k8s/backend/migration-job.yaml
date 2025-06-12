@@ -17,11 +17,11 @@ spec:
         command: ["sh", "-c"]
         args:
           - |
-            echo "Waiting for PostreSQL..."
+            echo "Waiting for PostgreSQL..."
             while ! pg_isready -h db -U ${POSTGRES_USER}; do
               sleep 2
             done
-            echo "PostreSQL is ready, running upgrade..."
+            echo "PostgreSQL is ready, running upgrade..."
             flask db upgrade
         env:
           - name: DATABASE_URL
