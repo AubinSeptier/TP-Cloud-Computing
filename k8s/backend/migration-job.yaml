@@ -22,13 +22,9 @@ spec:
               sleep 2
             done
             echo "PostgreSQL is ready, running upgrade..."
+            export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
             flask db upgrade
         env:
-          - name: DATABASE_URL
-            valueFrom:
-              configMapKeyRef:
-                name: app-config
-                key: DATABASE_URL
           - name: JWT_SECRET_KEY
             valueFrom:
               secretKeyRef:
