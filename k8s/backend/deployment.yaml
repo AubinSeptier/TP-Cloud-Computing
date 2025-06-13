@@ -22,7 +22,12 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
+              set -e
+              echo "Backend: Waiting for PostgreSQL..."
+              while ! pg_isready -h db -U ${POSTGRES_USER}; do sleep 2; done
+              echo "Backend: PostgreSQL is ready."
               export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+              echo "Backend: Starting Gunicorn..."
               gunicorn --bind 0.0.0.0:5000 'app:create_app()'
           env:
             - name: JWT_SECRET_KEY
@@ -30,6 +35,16 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: JWT_SECRET_KEY
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:

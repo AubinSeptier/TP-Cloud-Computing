@@ -58,8 +58,6 @@ spec:
               secretKeyRef:
                 name: app-secrets
                 key: POSTGRES_PASSWORD
-          - name: DATABASE_URL
-            value: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
           - name: FLASK_APP
             valueFrom:
               configMapKeyRef:
