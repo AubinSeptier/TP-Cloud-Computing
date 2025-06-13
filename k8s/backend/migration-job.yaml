@@ -14,22 +14,40 @@ spec:
       - name: migration
         image: 192.168.56.101:5000/imc-tracker-backend:latest
         imagePullPolicy: Always
-        command: ["sh", "-c"]
+        command: ["/bin/sh", "-c"]
         args:
           - |
+            set -e
             echo "Waiting for PostgreSQL..."
             while ! pg_isready -h db -U ${POSTGRES_USER}; do
               sleep 2
             done
-            echo "PostgreSQL is ready, running upgrade..."
-            export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
+            echo "PostgreSQL is ready"
+            echo "Checking if database ${POSTGRES_DB} exists..."
+            if PGPASSWORD=${POSTGRES_PASSWORD} psql -h db -U ${POSTGRES_USER} -d postgres -lqt | cut -d \| -f 1 | grep -qw ${POSTGRES_DB}
+            then
+              echo "Database ${POSTGRES_DB} already exists"
+            else
+              echo "Database does not exist, creating database ${POSTGRES_DB}..."
+              PGPASSWORD=${POSTGRES_PASSWORD} createdb -h db -U ${POSTGRES_USER} ${POSTGRES_DB}
+              echo "Database ${POSTGRES_DB} created successfully. Initializing migrations..."
+              flask db init
+              flask db stamp head
+            fi
+            echo "Running database upgrade..."
             flask db upgrade
+            echo "Database migration completed successfully"
         env:
           - name: JWT_SECRET_KEY
             valueFrom:
               secretKeyRef:
                 name: app-secrets
                 key: JWT_SECRET_KEY
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: app-config
+                key: POSTGRES_DB
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
@@ -40,6 +58,8 @@ spec:
               secretKeyRef:
                 name: app-secrets
                 key: POSTGRES_PASSWORD
+          - name: DATABASE_URL
+            value: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}"
           - name: FLASK_APP
             valueFrom:
               configMapKeyRef:
