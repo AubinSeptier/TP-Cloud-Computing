@@ -18,25 +18,20 @@ spec:
         args:
           - |
             set -e
-            echo "Waiting for PostgreSQL..."
-            while ! pg_isready -h db -U ${POSTGRES_USER}; do
-              sleep 2
-            done
-            echo "PostgreSQL is ready"
+            echo "Waiting for PostgreSQL server..."
+            while ! pg_isready -h db -U ${POSTGRES_USER}; do sleep 2; done
+            echo "PostgreSQL server is ready."
             echo "Checking if database ${POSTGRES_DB} exists..."
-            if PGPASSWORD=${POSTGRES_PASSWORD} psql -h db -U ${POSTGRES_USER} -d postgres -lqt | cut -d \| -f 1 | grep -qw ${POSTGRES_DB}
-            then
-              echo "Database ${POSTGRES_DB} already exists"
+            if PGPASSWORD=${POSTGRES_PASSWORD} psql -h db -U ${POSTGRES_USER} -d postgres -lqt | cut -d \| -f 1 | grep -qw ${POSTGRES_DB}; then
+              echo "Database '${POSTGRES_DB}' already exists."
             else
-              echo "Database does not exist, creating database ${POSTGRES_DB}..."
+              echo "Database '${POSTGRES_DB}' does not exist, creating..."
               PGPASSWORD=${POSTGRES_PASSWORD} createdb -h db -U ${POSTGRES_USER} ${POSTGRES_DB}
-              echo "Database ${POSTGRES_DB} created successfully. Initializing migrations..."
-              flask db init
-              flask db stamp head
+              echo "Database '${POSTGRES_DB}' created successfully."
             fi
             echo "Running database upgrade..."
             flask db upgrade
-            echo "Database migration completed successfully"
+            echo "Migration job completed successfully."
         env:
           - name: JWT_SECRET_KEY
             valueFrom:
