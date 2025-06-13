@@ -45,7 +45,7 @@ spec:
                 key: JWT_SECRET_KEY
           - name: POSTGRES_DB
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: app-config
                 key: POSTGRES_DB
           - name: POSTGRES_USER
