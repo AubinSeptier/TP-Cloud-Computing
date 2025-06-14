@@ -42,8 +42,18 @@ ask_yes_no() {
     done
 }
 
-# 1. Lancement du registre Docker local
+# Vérification que Docker est en cours d'exécution
+check_docker() {
+    if ! docker info >/dev/null 2>&1; then
+        print_error "Docker n'est pas en cours d'exécution. Veuillez démarrer Docker."
+        exit 1
+    fi
+}
+
+# 1. Vérification de Docker et lancement du registre
 print_step "Étape 1: Vérification/Lancement du registre Docker local"
+
+check_docker
 
 if docker ps -a --format "table {{.Names}}" | grep -q "^registry$"; then
     if docker ps --format "table {{.Names}}" | grep -q "^registry$"; then
@@ -129,9 +139,9 @@ print_step "Étape 4: Installation de K3s"
 
 if ask_yes_no "Voulez-vous installer K3s ?"; then
     print_warning "Installation de K3s en cours..."
-    if sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--docker --disable traefik" sh -s - server --node-ip ${REGISTRY_IP}; then
+    if curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--docker --disable traefik" sh -s - server --node-ip ${REGISTRY_IP}; then
         print_success "K3s installé avec succès"
-        sleep 10  # Attendre que K3s soit complètement démarré
+        sleep 10
     else
         print_error "Échec de l'installation de K3s"
         exit 1
